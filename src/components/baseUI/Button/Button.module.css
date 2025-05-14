@@ -13,6 +13,7 @@
 
   &:hover {
     background-color: var(--primary-color-hover);
+    cursor: pointer;
   }
 }
 
@@ -31,5 +32,6 @@
 
   &:hover {
     border: 1px solid var(--primary-color-hover);
+    cursor: pointer;
   }
 }

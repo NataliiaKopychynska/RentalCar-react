@@ -3,9 +3,46 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import 'modern-normalize'
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom'
+import HomePage from './pages/HomePage.jsx'
+import CatalogPage from './pages/CatalogPage.jsx'
+import DetailsPage from './pages/DetailsPage.jsx'
+import NotFound from './pages/NotFound.jsx'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'catalog',
+        element: <CatalogPage />,
+      },
+      {
+        path: `catalog/:id`,
+        element: <DetailsPage />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ],
+  },
+])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    {/* <BrowserRouter>
+      <App />
+    </BrowserRouter> */}
+    <RouterProvider router={router} />
   </StrictMode>
 )

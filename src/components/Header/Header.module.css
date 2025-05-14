@@ -1,0 +1,48 @@
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: var(--white-1);
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-size: 18px;
+}
+.accent {
+  color: var(--primary-color);
+}
+
+.navContainer {
+  display: flex;
+  gap: 32px;
+}
+
+.link {
+  padding: 24px 0;
+  /* font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25; */
+  color: var(--dark-10);
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--primary-color-hover);
+  }
+}
+
+.activeLink {
+  color: var(--primary-color-hover);
+}
