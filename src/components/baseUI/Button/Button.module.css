@@ -1,0 +1,35 @@
+.btnFilled {
+  gap: 0px;
+  background-color: var(--primary-color);
+  color: var(--white-3);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 99px;
+
+  height: 44px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+
+  &:hover {
+    background-color: var(--primary-color-hover);
+  }
+}
+
+.btnLink {
+  gap: 0px;
+  border: 1px solid var(--primary-color);
+  color: var(--dark-10);
+  background-color: transparent;
+  border-radius: 12px;
+  padding: 12px 99px;
+
+  height: 44px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+
+  &:hover {
+    border: 1px solid var(--primary-color-hover);
+  }
+}
