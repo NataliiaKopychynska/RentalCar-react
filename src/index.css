@@ -22,10 +22,35 @@
   --white-1: #f2f4f7;
   --white-2: #f7f7f7;
   --white-3: #ffffff;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Manrope', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
 
+@font-face {
+  font-family: 'Manrope';
+  src: url(/font/Manrope-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url(/font/Manrope-SemiBold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url(/font/Manrope-Medium.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url(/font/Manrope-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
 /* src/index.css */
 
 body {

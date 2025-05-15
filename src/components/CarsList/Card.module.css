@@ -1,0 +1,91 @@
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 276px);
+  justify-content: center;
+  gap: 48px 32px;
+}
+
+.container {
+  /* Замість overflow: hidden; краще додати padding або auto height */
+  width: 276px;
+  display: flex;
+  flex-direction: column;
+}
+
+.imgContainer {
+  position: relative;
+  border-radius: 14px;
+  width: 276px;
+  height: 268px;
+  overflow: hidden;
+}
+
+.iconLike {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  stroke: var(--white-1);
+  fill: none;
+  cursor: pointer;
+  transition: stroke 0.3s, fill 0.3s;
+}
+
+.iconLikeActive {
+  stroke: var(--primary-color);
+  fill: var(--primary-color);
+}
+
+.img {
+  display: block;
+  width: 276px;
+  height: 268px;
+}
+
+.titleContainer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--dark-10);
+}
+
+.titleSpan {
+  color: var(--primary-color);
+}
+
+.paragraf {
+  margin-top: 6px;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--gray-8);
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.6;
+}
+
+.paragraf > span {
+  color: var(--gray-5);
+}
+
+.btnFilled {
+  margin-top: 28px;
+  background-color: var(--primary-color);
+  color: var(--white-3);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 97px;
+  font-family: 'Manrope', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--primary-color-hover);
+    cursor: pointer;
+  }
+}

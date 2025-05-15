@@ -1,9 +1,9 @@
 import React from 'react'
 import s from './Button.module.css'
 
-function Button({ children, onClick }) {
+function Button({ children, onClick, btnType = 'submit' }) {
   return (
-    <button className={s.btnFilled} onClick={onClick}>
+    <button type={btnType} className={s.btnFilled} onClick={onClick}>
       {children}
     </button>
   )

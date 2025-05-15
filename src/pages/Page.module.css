@@ -3,12 +3,12 @@
 } */
 .containerHome {
   height: 100vh;
+  /* width: 1400px; */
   background-color: var(--gray-5);
   background-image: url('/Picture1x-min.jpg');
   background-image: image-set(
     url('/Picture1x-min.jpg') 1x,
-    url('/Picture2x-min.jpg'),
-    2x
+    url('/Picture2x-min.jpg') 2x
   );
   background-size: cover;
   background-position: center;
@@ -16,7 +16,8 @@
 
   .titleContainer {
     position: fixed;
-    bottom: 60px;
+    top: 65%;
+    /* bottom: 60px; */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -28,7 +29,7 @@
     .h1Title {
       font-family: 'Manrope', sans-serif;
       font-weight: 600;
-      /* width: 784px; */
+      width: 784px;
       font-size: 60px;
       line-height: 1.2;
       text-align: center;
@@ -43,4 +44,8 @@
       color: var(--white-3);
     }
   }
+}
+
+.containerCatalog {
+  margin-top: 68px;
 }

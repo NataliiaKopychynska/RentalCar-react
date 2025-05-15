@@ -4,18 +4,6 @@
   stroke: var(--dark-10);
 }
 
-.iconLike {
-  width: 16px;
-  height: 16px;
-  stroke: var(--white-1);
-  fill: none;
-
-  &:hover {
-    stroke: ver(--primary-color);
-    fill: var(--primary-color);
-  }
-}
-
 .iconDrop {
   width: 16px;
   height: 16px;
