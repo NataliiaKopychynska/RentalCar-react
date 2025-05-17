@@ -30,7 +30,7 @@ function CarCard({ dataCar }) {
       <div className={s.titleContainer}>
         <h3>
           {dataCar.brand}
-          <span className={s.titleSpan}> {dataCar.model}</span>
+          <span className={s.titleSpan}> {dataCar.model} </span>
           {dataCar.year}
         </h3>
         <h3>${dataCar.rentalPrice}</h3>

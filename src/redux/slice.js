@@ -5,7 +5,10 @@ const carSlice = createSlice({
   name: 'cars',
   initialState: {
     items: [],
+    filteredItems: [],
     likedCars: [],
+    allItems: [],
+    currentPage: 1,
     isLoading: false,
     error: null,
   },
@@ -18,6 +21,9 @@ const carSlice = createSlice({
         state.likedCars.push(id)
       }
     },
+    setFilteredCars: (state, action) => {
+      state.filteredItems = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -25,11 +31,23 @@ const carSlice = createSlice({
         state.isLoading = true
         state.error = null
       })
+      // .addCase(getAllCars.fulfilled, (state, action) => {
+      //   state.isLoading = false
+      //   state.items = action.payload.cars
+      //   console.log(state.items)
+      // })
       .addCase(getAllCars.fulfilled, (state, action) => {
         state.isLoading = false
-        state.items = action.payload.cars
-        console.log(state.items)
+        const cars = action.payload.cars.cars // доступ до масиву
+
+        state.items = [...state.items, ...cars]
+        state.allItems = [
+          ...(Array.isArray(state.allItems) ? state.allItems : []),
+          ...cars,
+        ]
+        state.currentPage = Number(action.payload.page)
       })
+
       .addCase(getAllCars.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.payload
@@ -37,5 +55,5 @@ const carSlice = createSlice({
   },
 })
 
-export const { toggleLike } = carSlice.actions
+export const { toggleLike, setFilteredCars } = carSlice.actions
 export default carSlice.reducer

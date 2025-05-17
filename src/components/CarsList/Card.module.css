@@ -6,10 +6,10 @@
 }
 
 .container {
-  /* Замість overflow: hidden; краще додати padding або auto height */
   width: 276px;
   display: flex;
   flex-direction: column;
+  margin-top: 56px;
 }
 
 .imgContainer {

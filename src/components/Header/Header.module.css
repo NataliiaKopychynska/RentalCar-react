@@ -34,8 +34,8 @@
 .link {
   padding: 24px 0;
   /* font-weight: 500;
-  font-size: 16px;
-  line-height: 1.25; */
+  font-size: 16px; */
+  line-height: 1.25;
   color: var(--dark-10);
   text-decoration: none;
 

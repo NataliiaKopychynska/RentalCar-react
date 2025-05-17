@@ -6,20 +6,39 @@ import s from './Card.module.css'
 
 function CarsList() {
   const dispatch = useDispatch()
-  const cars = useSelector((state) => state.cars.items)
-  console.log(cars)
 
-  //   const carArray = cars.cars || []
+  const items = useSelector((state) => state.cars.items)
+  const filtered = useSelector((state) => state.cars.filteredItems)
+  const currentPage = useSelector((state) => state.cars.currentPage)
+  const isLoading = useSelector((state) => state.cars.isLoading)
+
+  const carsToRender = filtered.length > 0 ? filtered : items
+  const uniqueCarsToRender = carsToRender.filter(
+    (car, index, self) => index === self.findIndex((c) => c.id === car.id)
+  )
 
   useEffect(() => {
-    dispatch(getAllCars())
-  }, [dispatch])
-  //   console.log('cars:', cars)
-  //   console.log('Array.isArray(cars):', Array.isArray(cars))
+    if (items.length === 0) {
+      dispatch(getAllCars(1)) // перша сторінка
+    }
+  }, [dispatch, items.length])
+
   return (
     <div className={s.cardsContainer}>
-      {Array.isArray(cars) ? (
-        cars.map((car) => <CarCard key={car.id} dataCar={car} />)
+      {Array.isArray(uniqueCarsToRender) ? (
+        <>
+          {uniqueCarsToRender.map((car) => (
+            <CarCard key={car.id} dataCar={car} />
+          ))}
+          {!isLoading && (
+            <button
+              className={s.loadMoreBtn}
+              onClick={() => dispatch(getAllCars(currentPage + 1))}
+            >
+              Load more
+            </button>
+          )}
+        </>
       ) : (
         <p>Loading or no cars available.</p>
       )}
