@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllCars } from '../../redux/operations'
 import CarCard from './CarCard'
 import s from './Card.module.css'
+import ButtonLink from '../baseUI/Button/ButtonLink'
 
 function CarsList() {
   const dispatch = useDispatch()
@@ -23,6 +24,8 @@ function CarsList() {
     }
   }, [dispatch, items.length])
 
+  const loadMoreAction = () => dispatch(getAllCars(currentPage + 1))
+
   return (
     <div className={s.cardsContainer}>
       {Array.isArray(uniqueCarsToRender) ? (
@@ -31,12 +34,7 @@ function CarsList() {
             <CarCard key={car.id} dataCar={car} />
           ))}
           {!isLoading && (
-            <button
-              className={s.loadMoreBtn}
-              onClick={() => dispatch(getAllCars(currentPage + 1))}
-            >
-              Load more
-            </button>
+            <ButtonLink onClick={loadMoreAction}>Load more</ButtonLink>
           )}
         </>
       ) : (

@@ -1,7 +1,5 @@
-import React from 'react'
-
 function DetailsPage() {
-  return <div>DetailsPage</div>
+  return <div></div>
 }
 
 export default DetailsPage

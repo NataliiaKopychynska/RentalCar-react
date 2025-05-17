@@ -38,14 +38,15 @@ const carSlice = createSlice({
       // })
       .addCase(getAllCars.fulfilled, (state, action) => {
         state.isLoading = false
-        const cars = action.payload.cars.cars // доступ до масиву
+
+        const cars = action.payload.cars.cars || []
+        const page = Number(
+          action.payload.page ?? action.payload.cars.page ?? state.currentPage
+        )
 
         state.items = [...state.items, ...cars]
-        state.allItems = [
-          ...(Array.isArray(state.allItems) ? state.allItems : []),
-          ...cars,
-        ]
-        state.currentPage = Number(action.payload.page)
+        state.allItems = [...(state.allItems || []), ...cars]
+        state.currentPage = page
       })
 
       .addCase(getAllCars.rejected, (state, action) => {
