@@ -1,45 +1,61 @@
-import React from 'react'
-import { useState } from 'react'
-import { useField } from 'formik'
-import s from './CustomerSelect.module.css'
+import { useEffect, useRef, useState } from 'react'
+import s from './CustomSelect.module.css'
+import { useFormikContext } from 'formik'
 
-function CustomSelect({ label, name, options }) {
-  const [field, meta, helpers] = useField(name)
-  const [open, setOpen] = useState(false)
+function CustomSelect({ name, options, placeholder = 'Select' }) {
+  const { values, setFieldValue } = useFormikContext()
+  const [isOpen, setIsOpen] = useState(false)
+  const selectRef = useRef(null)
 
-  const handleSelect = (option) => {
-    helpers.setValue(option)
-    setOpen(false)
+  const selectedValue = values[name]
+
+  const handleOpenSelect = () => {
+    setIsOpen(!isOpen)
   }
 
+  const handleOptionClick = (option) => {
+    // onChange(option)
+    setFieldValue(name, option)
+    setIsOpen(false)
+  }
+
+  const handleClickOutside = (e) => {
+    if (selectRef.current && !selectRef.current.contains(e.target)) {
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div className={s.customSelectWrapper}>
-      <label>{label}</label>
-      <div
-        className={s.selectedOption}
-        onClick={() => setOpen((prev) => !prev)}
-      >
-        {field.value || 'Choose option'}
+    <div className={s.selectContainer} ref={selectRef}>
+      <div onClick={handleOpenSelect} className={s.select_box}>
+        <div className={s.selected_value}>{selectedValue || placeholder}</div>
         <svg className={s.svgDrop}>
           <use href="/symbol-defs.svg#icon-drop"></use>
         </svg>
       </div>
 
-      {open && (
-        <ul className={s.optionsList}>
-          {options.map((opt) => (
-            <li
-              key={opt}
-              onClick={() => handleSelect(opt)}
-              className={opt === field.value ? 'active' : ''}
+      {isOpen && (
+        <div className={s.select_options}>
+          {options.map((option) => (
+            <div
+              key={option}
+              className={`${s.option} ${
+                option === selectedValue ? s.active : ''
+              }`}
+              onClick={() => handleOptionClick(option)}
             >
-              {opt}
-            </li>
+              {option}
+            </div>
           ))}
-        </ul>
+        </div>
       )}
-
-      {meta.touched && meta.error && <div className="error">{meta.error}</div>}
     </div>
   )
 }

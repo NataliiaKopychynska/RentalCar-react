@@ -1,3 +1,11 @@
+.containerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 80px;
+}
+
 .cardsContainer {
   display: grid;
   grid-template-columns: repeat(4, 276px);
@@ -87,5 +95,52 @@
   &:hover {
     background-color: var(--primary-color-hover);
     cursor: pointer;
+  }
+}
+
+/* !Not found cards  */
+.containerNotFoundCar {
+  position: relative;
+  width: 460px;
+  height: 132px;
+  margin: 0 auto;
+  margin-top: 48px;
+
+  .h1Title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    width: 460px;
+    font-size: 60px;
+    line-height: 0.5;
+    text-align: center;
+    color: var(--dark-10);
+  }
+
+  .svgContainer {
+    position: absolute;
+    top: 38px;
+    right: -75px;
+    /* transform: translateX(-50%); */
+    z-index: 1;
+
+    .svgRout {
+      width: 325px;
+      height: 73px;
+      z-index: -1;
+    }
+
+    .svgCar {
+      position: absolute;
+      top: 13px;
+      left: 16px;
+      width: 46px;
+      height: 46px;
+    }
   }
 }

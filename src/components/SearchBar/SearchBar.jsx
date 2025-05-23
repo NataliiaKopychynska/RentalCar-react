@@ -1,117 +1,108 @@
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
-import { useSelector } from 'react-redux'
 import s from './SearchBar.module.css'
 import Button from '../baseUI/Button/Button'
-import { useDispatch } from 'react-redux'
-import { setFilteredCars } from '../../redux/slice'
+import CustomSelect from './CustomSelect'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllCars, getBrands } from '../../redux/operations'
+import ButtonLink from '../baseUI/Button/ButtonLink'
+// import { setPage } from '../../redux/slice'
 
-function SearchBar() {
+function SearchBar({ filtersRef }) {
   const dispatch = useDispatch()
-  const hourPrice = 1000
+  const brands = useSelector((state) => state.cars.brands)
+  const [priseArr, setPriseArr] = useState([])
+  const maxPrise = 150
 
-  //   const cars = useSelector((state) => state.cars.items)
-  //   const cars = useSelector((state) => state.cars.allItems)
-  //   const brands = [...new Set(cars.map((car) => car.brand))]
-  const cars = useSelector((state) => state.cars.allItems) || []
-  const brands = [...new Set(cars.map((car) => car.brand))]
+  useEffect(() => {
+    const prise = []
+    for (let i = 10; i <= maxPrise; i += 10) {
+      prise.push(i)
+    }
+    setPriseArr(prise)
+  }, [setPriseArr])
+
+  useEffect(() => {
+    dispatch(getBrands())
+  }, [dispatch])
 
   const handleSubmit = (values) => {
-    const { brand, rentalPrice, minMileage, maxMileage } = values
-
-    const min = minMileage ? Number(minMileage) : null
-    const max = maxMileage ? Number(maxMileage) : null
-    const price = rentalPrice ? Number(rentalPrice) : null
-
-    const filtered = cars.filter((car) => {
-      const matchBrand = brand ? car.brand === brand : true
-      const matchPrice = price ? Number(car.rentalPrice) <= price : true
-      const matchMin = min !== null ? car.mileage >= min : true
-      const matchMax = max !== null ? car.mileage <= max : true
-
-      return matchBrand && matchPrice && matchMin && matchMax
-    })
-
-    dispatch(setFilteredCars(filtered))
+    filtersRef.current = values
+    dispatch(
+      getAllCars({
+        ...values,
+        page: 1,
+        shouldReset: true,
+      })
+    )
+    // dispatch(setPage(1))
+    // console.log('Formik values on submit:', values)
   }
 
-  //   console.log(brands)
-  //   console.log(cars[0])
+  const handleReset = () => {
+    dispatch(getAllCars({ page: 1 }))
+  }
 
   return (
-    <Formik
-      initialValues={{
-        brand: '',
-        rentalPrice: '',
-        minMileage: '',
-        maxMileage: '',
-      }}
-      onSubmit={handleSubmit}
-    >
-      {() => (
-        <Form className={s.form}>
-          <div className={s.selectWrapper}>
-            <label htmlFor="brand" className={s.labelGrid}>
-              Car brand
-            </label>
-            <div className={s.selectContainer}>
-              <Field className={s.select} as="select" name="brand">
-                <option value="">Choose a brand</option>
-                {brands.map((brand) => (
-                  <option key={brand} value={brand}>
-                    {brand}
-                  </option>
-                ))}
-              </Field>
-              <svg className={s.svgDrop}>
-                <use href="/symbol-defs.svg#icon-drop"></use>
-              </svg>
+    <>
+      <Formik
+        initialValues={{
+          brand: '',
+          rentalPrice: '',
+          minMileage: '',
+          maxMileage: '',
+        }}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+          <Form className={s.form}>
+            <div className={s.selectWrapper}>
+              <label htmlFor="brand" className={s.labelGrid}>
+                Car brand
+              </label>
+              <CustomSelect
+                name="brand"
+                options={brands}
+                placeholder="Choose a brand"
+              />
             </div>
-          </div>
 
-          <div className={s.selectWrapper}>
-            <label htmlFor="rentalPrice" className={s.labelGrid}>
-              Price per hour
-            </label>
-            <div className={s.selectContainer}>
-              <Field className={s.input} as="select" name="rentalPrice">
-                <option value="">Choose a price</option>
-                {Array.from(
-                  { length: hourPrice / 10 },
-                  (_, i) => i * 10 + 10
-                ).map((price) => (
-                  <option key={price} value={price}>
-                    {price}
-                  </option>
-                ))}
-              </Field>
-              <svg className={s.svgDrop}>
-                <use href="/symbol-defs.svg#icon-drop"></use>
-              </svg>
+            <div className={s.selectWrapper}>
+              <label htmlFor="rentalPrice" className={s.labelGrid}>
+                Price per hour
+              </label>
+              <CustomSelect
+                name="rentalPrice"
+                options={priseArr}
+                placeholder="Choose a brand"
+              />
             </div>
-          </div>
 
-          <div className={s.formDiv}>
-            <label htmlFor="minMileage" className={s.labelGrid}>
-              Сar mileage / km
-            </label>
-            <Field
-              className={`${s.input} ${s.input1}`}
-              type="number"
-              name="minMileage"
-              placeholder="from"
-            />
-            <Field
-              className={`${s.input} ${s.input2}`}
-              type="number"
-              name="maxMileage"
-              placeholder="to"
-            />
-          </div>
-
-          <Button type="submit">Search</Button>
-        </Form>
-      )}
-    </Formik>
+            <div className={s.formDiv}>
+              <label htmlFor="minMileage" className={s.labelGrid}>
+                Сar mileage / km
+              </label>
+              <Field
+                className={`${s.input} ${s.input1}`}
+                type="number"
+                name="minMileage"
+                placeholder="from"
+              />
+              <Field
+                className={`${s.input} ${s.input2}`}
+                type="number"
+                name="maxMileage"
+                placeholder="to"
+              />
+            </div>
+            <Button type="submit">Search</Button>
+          </Form>
+        )}
+      </Formik>
+      <ButtonLink type="button" onClick={handleReset}>
+        Reset
+      </ButtonLink>
+    </>
   )
 }
 

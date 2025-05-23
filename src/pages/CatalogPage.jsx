@@ -1,21 +1,15 @@
-import React from 'react'
-import SearchBar from '../components/SearchBar/SearchBar'
+import React, { useRef } from 'react'
 import s from './Page.module.css'
+import SearchBar from '../components/SearchBar/SearchBar'
 import CarsList from '../components/CarsList/CarsList'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { getAllCars } from '../redux/operations'
 
 function CatalogPage() {
-  const dispatch = useDispatch()
+  const filtersRef = useRef({})
 
-  useEffect(() => {
-    dispatch(getAllCars(1))
-  }, [dispatch])
   return (
     <div className={s.containerCatalog}>
-      <SearchBar />
-      <CarsList />
+      <SearchBar filtersRef={filtersRef} />
+      <CarsList filtersRef={filtersRef} />
     </div>
   )
 }

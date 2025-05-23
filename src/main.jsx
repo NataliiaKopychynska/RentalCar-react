@@ -9,7 +9,7 @@ import CatalogPage from './pages/CatalogPage.jsx'
 import DetailsPage from './pages/DetailsPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { Provider } from 'react-redux'
-import { store, persistor } from './redux/store'
+import { store } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 
 const router = createBrowserRouter([
@@ -43,7 +43,7 @@ createRoot(document.getElementById('root')).render(
       <App />
     </BrowserRouter> */}
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}></PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}></PersistGate> */}
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>

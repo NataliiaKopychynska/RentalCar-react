@@ -1,44 +1,61 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllCars } from '../../redux/operations'
-import CarCard from './CarCard'
+import React, { useEffect } from 'react'
 import s from './Card.module.css'
+import { getAllCars } from '../../redux/operations'
+import { useSelector, useDispatch } from 'react-redux'
+import CarCard from './CarCard'
 import ButtonLink from '../baseUI/Button/ButtonLink'
+import { setPage } from '../../redux/slice'
 
-function CarsList() {
+function CarsList({ filtersRef }) {
   const dispatch = useDispatch()
-
-  const items = useSelector((state) => state.cars.items)
-  const filtered = useSelector((state) => state.cars.filteredItems)
-  const currentPage = useSelector((state) => state.cars.currentPage)
-  const isLoading = useSelector((state) => state.cars.isLoading)
-
-  const carsToRender = filtered.length > 0 ? filtered : items
-  const uniqueCarsToRender = carsToRender.filter(
-    (car, index, self) => index === self.findIndex((c) => c.id === car.id)
-  )
+  const items = useSelector((state) => state.cars.carItems)
+  const page = useSelector((state) => state.cars.page)
+  const totalPages = useSelector((state) => state.cars?.totalPages || 1)
 
   useEffect(() => {
-    if (items.length === 0) {
-      dispatch(getAllCars(1)) // перша сторінка
-    }
-  }, [dispatch, items.length])
+    dispatch(getAllCars({ ...filtersRef.current, page, shouldReset: true }))
+    console.log(filtersRef)
+  }, [dispatch, page, filtersRef])
 
-  const loadMoreAction = () => dispatch(getAllCars(currentPage + 1))
+  const handleLoadMore = () => {
+    dispatch(
+      getAllCars({
+        ...filtersRef.current,
+        page: page + 1,
+        shouldReset: false,
+      })
+    )
+    dispatch(setPage(page + 1))
+  }
+
+  // const handleLoadMore = () => {
+  //   if (page < totalPages) {
+  //     dispatch(setPage(page + 1))
+  //   }
+  // }
 
   return (
-    <div className={s.cardsContainer}>
-      {Array.isArray(uniqueCarsToRender) ? (
-        <>
-          {uniqueCarsToRender.map((car) => (
-            <CarCard key={car.id} dataCar={car} />
-          ))}
-          {!isLoading && (
-            <ButtonLink onClick={loadMoreAction}>Load more</ButtonLink>
-          )}
-        </>
-      ) : (
-        <p>Loading or no cars available.</p>
+    <div className={s.containerContent}>
+      <div className={s.cardsContainer}>
+        {items.map((car) => (
+          <CarCard key={car.id} dataCar={car} />
+        ))}
+      </div>
+      {items.length === 0 && (
+        <div className={s.containerNotFoundCar}>
+          <h1 className={s.h1Title}>Cars not found</h1>
+          <div className={s.svgContainer}>
+            <svg className={s.svgCar}>
+              <use href="/symbol-defs.svg#icon-car-go"></use>
+            </svg>
+            <svg className={s.svgRout}>
+              <use href="/symbol-defs.svg#icon-rout"></use>
+            </svg>
+          </div>
+        </div>
+      )}
+      {totalPages && page < totalPages && (
+        <ButtonLink onClick={handleLoadMore}>Load more</ButtonLink>
       )}
     </div>
   )
