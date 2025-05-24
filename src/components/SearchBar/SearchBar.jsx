@@ -6,6 +6,7 @@ import CustomSelect from './CustomSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCars, getBrands } from '../../redux/operations'
 import ButtonLink from '../baseUI/Button/ButtonLink'
+import { getLikedCars } from '../../redux/slice'
 // import { setPage } from '../../redux/slice'
 
 function SearchBar({ filtersRef }) {
@@ -40,11 +41,25 @@ function SearchBar({ filtersRef }) {
   }
 
   const handleReset = () => {
-    dispatch(getAllCars({ page: 1 }))
+    dispatch(
+      getAllCars({
+        page: 1,
+        rentalPrice: '',
+        minMileage: '',
+        maxMileage: '',
+        brand: '',
+        limit: 12,
+        shouldReset: false,
+      })
+    )
+  }
+
+  const handleLikeCar = () => {
+    dispatch(getLikedCars())
   }
 
   return (
-    <>
+    <div className={s.containerBar}>
       <Formik
         initialValues={{
           brand: '',
@@ -99,10 +114,15 @@ function SearchBar({ filtersRef }) {
           </Form>
         )}
       </Formik>
-      <ButtonLink type="button" onClick={handleReset}>
+      <ButtonLink addClass={s.btnReset} type="button" onClick={handleReset}>
         Reset
       </ButtonLink>
-    </>
+      <ButtonLink onClick={handleLikeCar}>
+        <svg className={s.svgLike}>
+          <use href="/symbol-defs.svg#icon-like"></use>
+        </svg>
+      </ButtonLink>
+    </div>
   )
 }
 

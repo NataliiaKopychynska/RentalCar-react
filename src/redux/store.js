@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import carReducer from './slice'
+import carsReducer from './slice'
+import carReducer from './sliceCard'
 
 export const store = configureStore({
   reducer: {
-    cars: carReducer,
+    cars: carsReducer,
+    carID: carReducer,
   },
 })

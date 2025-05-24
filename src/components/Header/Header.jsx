@@ -19,7 +19,7 @@ function Header() {
           <NavLink className={buildLinkClass} to="/">
             Home
           </NavLink>
-          <NavLink className={buildLinkClass} to="/catalog">
+          <NavLink className={buildLinkClass} to="/cars">
             Catalog
           </NavLink>
         </nav>

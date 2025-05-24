@@ -33,11 +33,19 @@ input[type='number'] {
 .container {
   /* margin-top: 52px; */
 }
+.containerBar {
+  /* width: 1087px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: end;
+  gap: 16px;
+}
 
 .form {
   /* margin-top: 152px; */
   width: 930px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   display: grid;
   grid-template-columns: repeat(4, 204px 196px 320px 156px);
   gap: 16px;
@@ -102,4 +110,15 @@ input[type='number'] {
   grid-area: ii;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.svgLike {
+  width: 22px;
+  height: 22px;
+  fill: var(--gray-8);
+  /* stroke: var(--primary-color); */
+}
+
+.btnReset {
+  padding: 12px 48px;
 }

@@ -36,7 +36,7 @@ function CustomSelect({ name, options, placeholder = 'Select' }) {
     <div className={s.selectContainer} ref={selectRef}>
       <div onClick={handleOpenSelect} className={s.select_box}>
         <div className={s.selected_value}>{selectedValue || placeholder}</div>
-        <svg className={s.svgDrop}>
+        <svg className={`${s.svgDrop} ${isOpen === true ? s.svgOpen : ''}`}>
           <use href="/symbol-defs.svg#icon-drop"></use>
         </svg>
       </div>

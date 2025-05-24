@@ -22,19 +22,27 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 .svgDrop {
+  width: 13px;
+  height: 7px;
   position: absolute;
   right: 12px;
-  top: 50%;
-  transform: translateY(-35%);
+  top: 35%;
+  /* transform: translateY(-35%); */
   width: 16px;
   height: 16px;
   stroke: var(--dark-10);
-  transition: transform 0.3ms ease-in;
+  /* transition: transform 0.3ms ease-in; */
 
-  &:hover,
+  /* &:hover,
   &:active {
     transform: rotate(180deg);
-  }
+  } */
+}
+
+.svgOpen {
+  /* top: 30%; */
+  transform: rotate(180deg);
+  /* transition: transform 0.3s ease; */
 }
 
 /* .select-wrapper {
@@ -55,18 +63,23 @@ input[type='number']::-webkit-inner-spin-button {
   top: 100%;
   left: 0;
   width: 100%;
-  border: 1px solid #ccc;
+  height: 270px;
+  overflow-y: scroll;
+  border: 1px solid var(--white-2);
+  border-radius: 12px;
   border-top: none;
   background: white;
   z-index: 10;
 }
 
 .option {
+  color: var(--gray-8);
   padding: 10px;
   cursor: pointer;
 }
 .option:hover {
-  background: #f0f0f0;
+  color: var(--dark-10);
+  /* background: #f0f0f0; */
 }
 
 .selected {

@@ -14,7 +14,7 @@ function CarsList({ filtersRef }) {
 
   useEffect(() => {
     dispatch(getAllCars({ ...filtersRef.current, page, shouldReset: true }))
-    console.log(filtersRef)
+    // console.log(filtersRef)
   }, [dispatch, page, filtersRef])
 
   const handleLoadMore = () => {

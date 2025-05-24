@@ -13,7 +13,7 @@ function HomePage() {
           Reliable and budget-friendly rentals for any journey
         </h3>
         {/* <Button>View Catalog</Button> */}
-        <Link to="catalog" className={buttonCSS.btnFilled}>
+        <Link to="cars" className={buttonCSS.btnFilled}>
           View Catalog
         </Link>
       </div>

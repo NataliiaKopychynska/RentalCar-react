@@ -51,3 +51,28 @@
   margin-bottom: 124px;
   /* margin-top: 68px; */
 }
+
+.containerDetails {
+  margin-top: 104px;
+  margin-bottom: 124px;
+  display: grid;
+  grid-template-columns: 640px 488px;
+  grid-template-rows: 640px 640px;
+  gap: 40px 70px;
+  grid-template-areas:
+    'img tt'
+    'frm tt';
+  justify-content: center;
+}
+
+.imgCar {
+  grid-area: img;
+  border-radius: 18px;
+}
+
+.sectionTitle {
+  grid-area: tt;
+}
+.sectionForm {
+  grid-area: frm;
+}
