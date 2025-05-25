@@ -4,28 +4,36 @@ import Icon from '../baseUI/Icons/Icon'
 
 function DetailsTitle({ dataCar }) {
   const addressCar = dataCar.address.split(',')
-  //   console.log(addressCar)
 
   return (
     <div>
-      <section className={s.section}>
-        <div>
-          <h2>
-            {dataCar.brand}, {dataCar.model}
-          </h2>
-          <h4>Id: {dataCar.mileage}</h4>
-        </div>
-        <div>
+      <div className={s.divFlexRow}>
+        <h2 className={s.h2}>
+          {dataCar.brand}, {dataCar.model}
+        </h2>
+        <h4 className={s.IDCar}>Id: {dataCar.mileage}</h4>
+      </div>
+      <div className={s.divFlexRow}>
+        <div className={s.itemContainer}>
           <Icon id="icon-location" onClass={s.icon} />
           <p>
             {addressCar[1]}, {addressCar[2]}
           </p>
-          <p>Mileage: {dataCar.mileage}km</p>
         </div>
-        <h3>${dataCar.rentalPrice}</h3>
-        <p>{dataCar.description}</p>
+        <p>Mileage: {dataCar.mileage}km</p>
+      </div>
+      <h3 className={s.prise}>${dataCar.rentalPrice}</h3>
+      <p>{dataCar.description}</p>
+
+      <section className={s.section}>
+        <h3>Rental Conditions:</h3>
+        {dataCar.accessories.map((item, i) => (
+          <div key={i} className={s.itemContainer}>
+            <Icon id="icon-location" onClass={s.icon} />
+            <p>{item}</p>
+          </div>
+        ))}
       </section>
-      <section className={s.section}></section>
     </div>
   )
 }
