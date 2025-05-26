@@ -41,7 +41,7 @@ function FormSection() {
         onSubmit={(values, { resetForm }) => {
           // console.log(values)
           notify()
-          // resetForm()
+          resetForm()
         }}
       >
         <Form className={s.inputBox}>
