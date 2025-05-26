@@ -16,6 +16,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
@@ -28,10 +29,6 @@ const router = createBrowserRouter([
       {
         path: `cars/:id`,
         element: <DetailsPage />,
-      },
-      {
-        path: '*',
-        element: <NotFound />,
       },
     ],
   },

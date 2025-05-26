@@ -85,3 +85,44 @@
   border-radius: 10px;
   justify-items: start;
 }
+
+/* not found */
+.container {
+  text-align: center;
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  font-size: 96px;
+  font-weight: bold;
+  color: var(--dark-10);
+}
+
+.message {
+  font-size: 20px;
+  color: var(--gray-8);
+}
+
+.homeLink {
+  gap: 0px;
+  border: 1px solid var(--primary-color);
+  color: var(--dark-10);
+  background-color: transparent;
+  border-radius: 12px;
+  padding: 12px 12px;
+  font-family: 'Manrope', Helvetica, Arial, sans-serif;
+  height: 44px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-decoration: none;
+
+  &:hover {
+    border: 1px solid var(--primary-color-hover);
+    cursor: pointer;
+  }
+}

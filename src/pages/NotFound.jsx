@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import s from './Page.module.css'
 
 function NotFound() {
   const navigate = useNavigate()
@@ -14,20 +16,15 @@ function NotFound() {
   }, [navigate])
 
   return (
-    <h1>
-      Page not found...
-      <br />
-      Page not found...
-      <br />
-      Page not found...
-      <br />
-      Page not found...
-      <br />
-      Page not found...
-      <br />
-      Page not found...
-      <br />
-    </h1>
+    <div className={s.container}>
+      <h1 className={s.title}>404</h1>
+      <p className={s.message}>
+        Oops! The page you're looking for doesn't exist.
+      </p>
+      <Link to="/" className={s.homeLink}>
+        Go back home
+      </Link>
+    </div>
   )
 }
 
