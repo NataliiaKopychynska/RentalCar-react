@@ -5,34 +5,36 @@ import { useSelector, useDispatch } from 'react-redux'
 import CarCard from './CarCard'
 import ButtonLink from '../baseUI/Button/ButtonLink'
 import { setPage } from '../../redux/slice'
+import { BeatLoader } from 'react-spinners'
 
-function CarsList({ filtersRef }) {
+// function CarsList({ filtersRef }) {
+function CarsList() {
   const dispatch = useDispatch()
   const items = useSelector((state) => state.cars.carItems)
   const page = useSelector((state) => state.cars.page)
-  const totalPages = useSelector((state) => state.cars?.totalPages || 1)
+  // const newPage = page + 1
+  // console.log(newPage)
 
+  const totalPages = useSelector((state) => state.cars?.totalPages || 1)
+  console.log(totalPages)
+
+  const loading = useSelector((state) => state.cars.isLoading)
+
+  // useEffect(() => {
+  // dispatch(getAllCars({ ...filtersRef.current, page, shouldReset: true }))
+  //   // console.log(filtersRef)
+  // }, [dispatch, page, filtersRef])
   useEffect(() => {
-    dispatch(getAllCars({ ...filtersRef.current, page, shouldReset: true }))
-    // console.log(filtersRef)
-  }, [dispatch, page, filtersRef])
+    dispatch(getAllCars({ page }))
+  }, [dispatch, page])
 
   const handleLoadMore = () => {
-    dispatch(
-      getAllCars({
-        ...filtersRef.current,
-        page: page + 1,
-        shouldReset: false,
-      })
-    )
-    dispatch(setPage(page + 1))
+    const nextPage = page + 1
+    dispatch(setPage(nextPage))
+    dispatch(getAllCars({ page: nextPage }))
+    // dispatch(getAllCars({ page }))
+    // dispatch(setPage(page + 1))
   }
-
-  // const handleLoadMore = () => {
-  //   if (page < totalPages) {
-  //     dispatch(setPage(page + 1))
-  //   }
-  // }
 
   return (
     <div className={s.containerContent}>
@@ -41,7 +43,7 @@ function CarsList({ filtersRef }) {
           <CarCard key={car.id} dataCar={car} />
         ))}
       </div>
-      {items.length === 0 && (
+      {items.length === 0 && !loading && (
         <div className={s.containerNotFoundCar}>
           <h1 className={s.h1Title}>Cars not found</h1>
           <div className={s.svgContainer}>
@@ -54,9 +56,10 @@ function CarsList({ filtersRef }) {
           </div>
         </div>
       )}
-      {totalPages && page < totalPages && (
+      {!loading && totalPages && page < totalPages && (
         <ButtonLink onClick={handleLoadMore}>Load more</ButtonLink>
       )}
+      {loading && <BeatLoader />}
     </div>
   )
 }

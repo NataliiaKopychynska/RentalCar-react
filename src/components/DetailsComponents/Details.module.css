@@ -20,7 +20,8 @@
 
 .icon {
   width: 16px;
-  height: 16px;
+  height: 18px;
+  padding-top: 2px;
 }
 
 .prise {
@@ -33,10 +34,54 @@
 }
 
 .section {
+  margin-top: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+}
+.topicContainer {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .itemContainer {
   display: flex;
   align-items: baseline;
-  gap: 2px;
+  gap: 8px;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.topicLabel {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.input::placeholder {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--gray-8);
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
 }

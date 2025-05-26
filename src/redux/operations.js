@@ -3,8 +3,8 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'https://car-rental-api.goit.global/'
 
-export const getAllCars = createAsyncThunk(
-  'cars/getAll',
+export const filteredCards = createAsyncThunk(
+  'cars/filterCars',
   async (
     {
       page = 1,
@@ -37,6 +37,25 @@ export const getAllCars = createAsyncThunk(
         page: data.page,
         totalPages: data.totalPages,
         shouldReset,
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message)
+    }
+  }
+)
+
+export const getAllCars = createAsyncThunk(
+  'cars/getAll',
+  async ({ page = 1 }, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/cars?page=${page}`)
+
+      // console.log(data)
+
+      return {
+        cars: data.cars,
+        page: data.page,
+        totalPages: data.totalPages,
       }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message)

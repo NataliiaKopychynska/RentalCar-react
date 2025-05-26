@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllCars, getBrands, getCarById } from './operations'
+import { getAllCars, getBrands, filteredCards } from './operations'
 
 const sliceCar = createSlice({
   name: 'cars',
@@ -39,8 +39,34 @@ const sliceCar = createSlice({
       .addCase(getAllCars.pending, (state) => {
         state.isLoading = true
         state.error = null
+        // state.carItems = []
       })
       .addCase(getAllCars.fulfilled, (state, action) => {
+        const { cars, page, totalPages } = action.payload
+
+        state.isLoading = false
+        state.page = +page
+        state.totalPages = +totalPages
+        state.carItems = [
+          ...state.carItems,
+          ...cars.filter(
+            (newCar) =>
+              !state.carItems.some(
+                (existingCar) => existingCar.id === newCar.id
+              )
+          ),
+        ]
+      })
+      .addCase(getAllCars.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload
+      })
+      .addCase(filteredCards.pending, (state) => {
+        state.isLoading = true
+        state.error = null
+        state.carItems = []
+      })
+      .addCase(filteredCards.fulfilled, (state, action) => {
         const { cars, page, totalPages, shouldReset } = action.payload
 
         state.isLoading = false
@@ -62,7 +88,7 @@ const sliceCar = createSlice({
         }
       })
 
-      .addCase(getAllCars.rejected, (state, action) => {
+      .addCase(filteredCards.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.payload
       })

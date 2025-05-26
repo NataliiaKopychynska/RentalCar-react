@@ -26,13 +26,54 @@ function DetailsTitle({ dataCar }) {
       <p>{dataCar.description}</p>
 
       <section className={s.section}>
-        <h3>Rental Conditions:</h3>
-        {dataCar.accessories.map((item, i) => (
-          <div key={i} className={s.itemContainer}>
-            <Icon id="icon-location" onClass={s.icon} />
-            <p>{item}</p>
+        <div>
+          <h3 className={s.topicContainer}>Rental Conditions:</h3>
+          <div className={s.itemsContainer}>
+            {dataCar.rentalConditions.map((item, i) => (
+              <div key={i} className={s.itemContainer}>
+                <Icon id="icon-check-circle" onClass={s.icon} />
+                <p>{item}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <div>
+          <h3 className={s.topicContainer}>Rental Conditions:</h3>
+          <div className={s.itemsContainer}>
+            <div className={s.itemContainer}>
+              <Icon id="icon-calendar" onClass={s.icon} />
+              <p>Year: {dataCar.year}</p>
+            </div>
+
+            <div className={s.itemContainer}>
+              <Icon id="icon-car" onClass={s.icon} />
+              <p>Type: {dataCar.type}</p>
+            </div>
+
+            <div className={s.itemContainer}>
+              <Icon id="icon-fuel-pump" onClass={s.icon} />
+              <p>Fuel Consumption: {dataCar.fuelConsumption}</p>
+            </div>
+
+            <div className={s.itemContainer}>
+              <Icon id="icon-gear" onClass={s.icon} />
+              <p>Engine Size: {dataCar.engineSize}</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 className={s.topicContainer}>Accessories and functionalities:</h3>
+          <div className={s.itemsContainer}>
+            {dataCar.accessories.map((item, i) => (
+              <div key={i} className={s.itemContainer}>
+                <Icon id="icon-check-circle" onClass={s.icon} />
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   )

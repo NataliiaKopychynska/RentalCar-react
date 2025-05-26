@@ -4,9 +4,9 @@ import s from './SearchBar.module.css'
 import Button from '../baseUI/Button/Button'
 import CustomSelect from './CustomSelect'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCars, getBrands } from '../../redux/operations'
+import { getAllCars, getBrands, filteredCards } from '../../redux/operations'
 import ButtonLink from '../baseUI/Button/ButtonLink'
-import { getLikedCars } from '../../redux/slice'
+import { getLikedCars, setPage } from '../../redux/slice'
 // import { setPage } from '../../redux/slice'
 
 function SearchBar({ filtersRef }) {
@@ -30,13 +30,13 @@ function SearchBar({ filtersRef }) {
   const handleSubmit = (values) => {
     filtersRef.current = values
     dispatch(
-      getAllCars({
+      filteredCards({
         ...values,
         page: 1,
         shouldReset: true,
       })
     )
-    // dispatch(setPage(1))
+    dispatch(setPage(1))
     // console.log('Formik values on submit:', values)
   }
 
@@ -44,14 +44,11 @@ function SearchBar({ filtersRef }) {
     dispatch(
       getAllCars({
         page: 1,
-        rentalPrice: '',
-        minMileage: '',
-        maxMileage: '',
-        brand: '',
         limit: 12,
-        shouldReset: false,
+        shouldReset: true,
       })
     )
+    dispatch(setPage(1))
   }
 
   const handleLikeCar = () => {

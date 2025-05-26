@@ -10,7 +10,7 @@ function Calendar({ name, label }) {
   const { value } = field
 
   return (
-    <div className="input-wrapper">
+    <div className={s.inputWrapper}>
       <DatePicker
         selectsRange
         startDate={value?.[0] || null}
