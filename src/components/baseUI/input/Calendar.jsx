@@ -5,24 +5,30 @@ import 'react-datepicker/dist/react-datepicker.css'
 import s from './Input.module.css'
 
 function Calendar({ name, label }) {
-  const { setFieldValue } = useFormikContext()
+  const { setFieldValue, setFieldTouched } = useFormikContext()
   const [field, meta] = useField(name)
   const { value } = field
 
+  const handleChange = (dates) => {
+    setFieldValue(name, dates)
+    setFieldTouched(name, true) // <--- ОЦЕ ДОДАЙ
+  }
   return (
     <div className={s.inputWrapper}>
       <DatePicker
         selectsRange
         startDate={value?.[0] || null}
         endDate={value?.[1] || null}
-        onChange={(dates) => setFieldValue(name, dates)}
+        onChange={handleChange}
         isClearable
         placeholderText="Booking date"
         className={s.input}
         calendarClassName="custom-calendar"
       />
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <div name="rentalPeriod" className={s.error}>
+          {meta.error}
+        </div>
       ) : null}
     </div>
   )

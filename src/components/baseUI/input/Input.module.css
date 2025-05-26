@@ -14,3 +14,9 @@
   border: none;
   border: 1px solid var(--primary-color-hover);
 }
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}

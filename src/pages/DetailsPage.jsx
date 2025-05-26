@@ -18,7 +18,7 @@ function DetailsPage() {
     dispatch(getCarById(id))
   }, [dispatch, id])
 
-  console.log(carDetails)
+  // console.log(carDetails)
   if (!carDetails) {
     return <p>Loading...</p>
   }

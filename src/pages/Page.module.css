@@ -77,7 +77,8 @@
   grid-area: tt;
 }
 .sectionForm {
-  box-sizing: content-box;
+  box-sizing: border-box;
+  align-items: stretch;
   grid-area: frm;
   padding: 32px;
   border: 1px solid var(--gray-5);

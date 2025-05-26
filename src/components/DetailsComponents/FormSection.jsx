@@ -4,14 +4,19 @@ import s from './Details.module.css'
 import Calendar from '../baseUI/input/Calendar'
 import Button from '../baseUI/Button/Button'
 import * as Yup from 'yup'
+import toast, { Toaster } from 'react-hot-toast'
+
+const notify = () =>
+  toast('Thank you! Your booking request has been sent successfully.')
 
 function FormSection() {
   const validationSchema = Yup.object({
-    // rentalPeriod: Yup.date('Date is required.').min(
-    //   new Date(),
-    //   'Date cannot be in the past'
-    // ),
-    rentalPeriod: Yup.array().required('Date is required'),
+    // rentalPeriod: Yup.array().required('Date is required'),
+    rentalPeriod: Yup.array()
+      .of(Yup.date().nullable())
+      .test('both-dates', 'Select a full date range', (value) => {
+        return value?.[0] && value?.[1]
+      }),
     name: Yup.string().required('Name is required.'),
     email: Yup.string().email('Email invalid').required('Email is required'),
     comment: Yup.string(),
@@ -33,7 +38,11 @@ function FormSection() {
           comment: '',
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values, { resetForm }) => {
+          // console.log(values)
+          notify()
+          // resetForm()
+        }}
       >
         <Form className={s.inputBox}>
           <Field className={s.input} name="name" placeholder="Name*" />
@@ -41,15 +50,11 @@ function FormSection() {
           <Field className={s.input} name="email" placeholder="Email*" />
           <ErrorMessage name="email" component="div" className={s.error} />
           <Calendar name="rentalPeriod" />
-          <ErrorMessage
-            name="rentalPeriod"
-            component="div"
-            className={s.error}
-          />
 
           <Field className={s.input} name="comment" placeholder="Comment" />
 
           <Button>Submit</Button>
+          <Toaster position="top-center" />
         </Form>
       </Formik>
     </div>
